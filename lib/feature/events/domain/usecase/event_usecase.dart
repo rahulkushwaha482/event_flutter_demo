@@ -6,7 +6,7 @@ class EventUseCase {
 
   EventUseCase(this.repository);
 
-  Future<void> call(Event url) async {
-    return await repository.fetchEvent(url);
+  Future<List<Event>> call() async {
+    return await repository.fetchEvent();
   }
 }

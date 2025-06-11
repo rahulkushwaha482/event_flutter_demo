@@ -7,11 +7,13 @@ class EventRepositoryImpl implements EventRepository {
 
   EventRepositoryImpl(this.remoteDataSource);
 
+// ToDO: We need to change the lat long here
+
   @override
   Future<List<Event>> fetchEvent() async {
     final models = await remoteDataSource.fetchEvents();
     return models
-        .map((e) => Event(title: e.name, time: e.time, lat: e.lat, lng: e.lng))
+        .map((e) => Event(title: e.name, time: e.time, lat: 44.23, lng: 33.33))
         .toList();
   }
 }
