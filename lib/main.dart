@@ -1,7 +1,6 @@
+import 'package:event_flutter_test/feature/events/presentation/screen/event_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'feature/events/presentation/screen/event_screen.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
