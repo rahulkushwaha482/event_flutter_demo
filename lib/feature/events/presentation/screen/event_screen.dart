@@ -19,44 +19,54 @@ class EventScreen extends ConsumerWidget {
       LatLng(13.0827, 80.2707), // Chennai
     ];
 
+    final markers = <Marker>{};
+
+    eventsAsync.whenOrNull(data: (events) {
+      for (int i = 0; i < events.length; i++) {
+        final position = fixedLocations[i];
+        markers.add(
+          Marker(
+            markerId: MarkerId(events[i].name),
+            position: position,
+            icon: selectedLocation == position
+                ? BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueOrange)
+                : BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueRed),
+            infoWindow: InfoWindow(title: events[i].name),
+          ),
+        );
+      }
+    });
+
     return Scaffold(
       body: Stack(
         children: [
-          eventsAsync.when(
-            data: (events) {
-              final markers = <Marker>{};
-
-              for (int i = 0; i < events.length; i++) {
-                final position = fixedLocations[i];
-                markers.add(
-                  Marker(
-                    markerId: MarkerId(events[i].name),
-                    position: position,
-                    icon: selectedLocation == position
-                        ? BitmapDescriptor.defaultMarkerWithHue(
-                            BitmapDescriptor.hueOrange)
-                        : BitmapDescriptor.defaultMarkerWithHue(
-                            BitmapDescriptor.hueRed),
-                    infoWindow: InfoWindow(title: events[i].name),
-                  ),
-                );
-              }
-
-              return GoogleMap(
-                initialCameraPosition: CameraPosition(
-                  target: fixedLocations[0],
-                  zoom: 10,
-                ),
-                markers: markers,
-              );
-            },
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error: (e, _) => Center(child: Text("Error loading map")),
+          GoogleMap(
+            initialCameraPosition: CameraPosition(
+              target: fixedLocations[0],
+              zoom: 10,
+            ),
+            markers: markers,
           ),
+          if (eventsAsync.isLoading)
+            const Center(child: CircularProgressIndicator()),
+          if (eventsAsync.hasError)
+            Center(
+              child: Container(
+                color: Colors.white.withOpacity(0.8),
+                padding: const EdgeInsets.all(16),
+                child: Text(
+                  'Error loading events: ${eventsAsync.asError!.error}',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(color: Colors.red),
+                ),
+              ),
+            ),
           Align(
             alignment: Alignment.bottomCenter,
             child: EventBottomSheet(),
-          )
+          ),
         ],
       ),
     );

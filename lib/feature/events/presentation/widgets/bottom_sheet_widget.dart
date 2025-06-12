@@ -1,3 +1,4 @@
+import 'package:event_flutter_test/core/utils/date_formatter.dart';
 import 'package:event_flutter_test/feature/events/presentation/provider/event_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,7 +18,7 @@ class EventBottomSheet extends ConsumerWidget {
 
     return eventsAsync.when(
       data: (events) => Container(
-        height: 200,
+        height: 300,
         padding: const EdgeInsets.all(16),
         decoration: const BoxDecoration(
           color: Colors.black87,
@@ -30,7 +31,8 @@ class EventBottomSheet extends ConsumerWidget {
             return ListTile(
               leading: Icon(Icons.location_on, color: Colors.orange),
               title: Text(e.name, style: TextStyle(color: Colors.white)),
-              subtitle: Text(e.time, style: TextStyle(color: Colors.white60)),
+              subtitle: Text(DateFormatter.formatEventDate(e.time),
+                  style: TextStyle(color: Colors.white60)),
               onTap: () {
                 ref.read(selectedLocationProvider.notifier).state =
                     fixedLocations[index];
