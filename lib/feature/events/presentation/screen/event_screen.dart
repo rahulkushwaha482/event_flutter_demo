@@ -9,14 +9,14 @@ class EventScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final eventsAsync = ref.watch(eventProvider);
+    final eventsAsync = ref.watch(eventNotifierProvider);
     final selectedLocation = ref.watch(selectedLocationProvider);
 
     final List<LatLng> fixedLocations = [
-      LatLng(28.6139, 77.2090), // Delhi
-      LatLng(12.9716, 77.5946), // Bangalore
-      LatLng(19.0760, 72.8777), // Mumbai
-      LatLng(13.0827, 80.2707), // Chennai
+      LatLng(28.6139, 77.2090),
+      LatLng(12.9716, 77.5946),
+      LatLng(19.0760, 72.8777),
+      LatLng(13.0827, 80.2707),
     ];
 
     final markers = <Marker>{};

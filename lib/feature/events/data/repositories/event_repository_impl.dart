@@ -27,7 +27,7 @@ class EventRepositoryImpl implements EventRepository {
       final location = LocationConstant.fixedEventLocations[index];
 
       return Event(
-        title: e.name,
+        name: e.name,
         time: e.time,
         lat: location[0],
         lng: location[1],

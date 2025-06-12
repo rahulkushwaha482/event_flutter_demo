@@ -7,7 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class EventBottomSheet extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final eventsAsync = ref.watch(eventProvider);
+    final eventsAsync = ref.watch(eventNotifierProvider);
 
     final List<LatLng> fixedLocations = [
       LatLng(28.6139, 77.2090), // Delhi
