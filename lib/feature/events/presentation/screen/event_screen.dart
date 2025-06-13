@@ -1,4 +1,3 @@
-import 'package:event_flutter_test/feature/events/presentation/provider/bottom_navbar_provider.dart';
 import 'package:event_flutter_test/feature/events/presentation/provider/event_provider.dart';
 import 'package:event_flutter_test/feature/events/presentation/widgets/bottom_sheet_widget.dart';
 import 'package:event_flutter_test/feature/events/presentation/widgets/build_nav_item.dart';

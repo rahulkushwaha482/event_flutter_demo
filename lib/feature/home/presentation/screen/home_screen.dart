@@ -1,5 +1,5 @@
-import 'package:event_flutter_test/feature/events/presentation/provider/bottom_navbar_provider.dart';
 import 'package:event_flutter_test/feature/events/presentation/screen/event_screen.dart';
+import 'package:event_flutter_test/feature/home/presentation/provider/bottom_navbar_provider.dart';
 import 'package:event_flutter_test/feature/search/presentation/screen/search_screen.dart';
 import 'package:event_flutter_test/feature/setting/presentation/screen/setting_screen.dart';
 import 'package:flutter/material.dart';
