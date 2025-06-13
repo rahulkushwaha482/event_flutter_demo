@@ -52,16 +52,17 @@ class EventScreen extends ConsumerWidget {
                 color: Colors.white,
                 padding: const EdgeInsets.all(16),
                 child: Text(
-                  'Error loading events: ${eventsAsync.asError!.error}',
+                  'Error loading events: ${eventsAsync.error}',
                   textAlign: TextAlign.center,
                   style: const TextStyle(color: Colors.red),
                 ),
               ),
             ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: EventBottomSheet(),
-          ),
+          if (!eventsAsync.hasError)
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: EventBottomSheet(),
+            ),
         ],
       ),
     );

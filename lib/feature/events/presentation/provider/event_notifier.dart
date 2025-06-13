@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:event_flutter_test/core/network/network_info.dart';
 import 'package:event_flutter_test/core/usecase/usecase.dart';
 import 'package:event_flutter_test/core/utils/location_service.dart';
@@ -9,10 +12,12 @@ class EventNotifier extends StateNotifier<AsyncValue<List<Event>>> {
   final EventUseCase useCase;
   final NetworkInfo networkInfo;
   final LocationService locationService;
+  late final StreamSubscription _connectionSubscription;
 
   EventNotifier(this.useCase, this.networkInfo, this.locationService)
       : super(const AsyncLoading()) {
     loadEvents();
+    _listenToConnection();
   }
 
   Future<void> loadEvents() async {
@@ -33,5 +38,19 @@ class EventNotifier extends StateNotifier<AsyncValue<List<Event>>> {
     } catch (e, st) {
       state = AsyncError(e, st);
     }
+  }
+
+  void _listenToConnection() {
+    _connectionSubscription = networkInfo.onConnectionChanged.listen((result) {
+      if (result != ConnectivityResult.none) {
+        loadEvents();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _connectionSubscription.cancel();
+    super.dispose();
   }
 }

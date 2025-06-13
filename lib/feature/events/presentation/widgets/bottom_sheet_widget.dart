@@ -3,7 +3,6 @@ import 'package:event_flutter_test/core/utils/date_formatter.dart';
 import 'package:event_flutter_test/feature/events/presentation/provider/event_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class EventBottomSheet extends ConsumerWidget {
   @override
