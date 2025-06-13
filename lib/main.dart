@@ -1,4 +1,5 @@
 import 'package:event_flutter_test/feature/events/presentation/screen/event_screen.dart';
+import 'package:event_flutter_test/feature/home/presentation/screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,6 +12,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: EventScreen());
+    return Scaffold(body: HomeScreen());
   }
 }
