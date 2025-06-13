@@ -5,9 +5,7 @@ BottomNavigationBarItem buildNavItem(
   bool isSelected = index == selectedIndex;
   return BottomNavigationBarItem(
     icon: Container(
-      //  padding: const EdgeInsets.all(8),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-
       decoration: BoxDecoration(
         color: isSelected ? Colors.orange : Colors.transparent,
         shape: BoxShape.circle,

@@ -1,7 +1,14 @@
-class ServerException implements Exception {
+class NoInternetException implements Exception {
   final String message;
-  ServerException(this.message);
-
+  NoInternetException([this.message = "No internet connection"]);
   @override
-  String toString() => "ServerException: $message";
+  String toString() => message;
+}
+
+class LocationPermissionException implements Exception {
+  final String message;
+  LocationPermissionException(
+      [this.message = "Location permission not granted or service disabled"]);
+  @override
+  String toString() => message;
 }

@@ -1,7 +1,7 @@
 import 'package:event_flutter_test/core/constants/location_constant.dart';
+import 'package:event_flutter_test/core/error/exception.dart';
 import 'package:event_flutter_test/feature/events/presentation/provider/event_provider.dart';
 import 'package:event_flutter_test/feature/events/presentation/widgets/bottom_sheet_widget.dart';
-import 'package:event_flutter_test/feature/events/presentation/widgets/build_nav_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -52,7 +52,16 @@ class EventScreen extends ConsumerWidget {
                 color: Colors.white,
                 padding: const EdgeInsets.all(16),
                 child: Text(
-                  'Error loading events: ${eventsAsync.error}',
+                  () {
+                    final error = eventsAsync.error;
+                    if (error is NoInternetException) {
+                      return error.message;
+                    } else if (error is LocationPermissionException) {
+                      return error.message;
+                    } else {
+                      return "Something went wrong: $error";
+                    }
+                  }(),
                   textAlign: TextAlign.center,
                   style: const TextStyle(color: Colors.red),
                 ),

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:event_flutter_test/core/error/exception.dart';
 import 'package:event_flutter_test/core/network/network_info.dart';
 import 'package:event_flutter_test/core/usecase/usecase.dart';
 import 'package:event_flutter_test/core/utils/location_service.dart';
@@ -16,7 +17,6 @@ class EventNotifier extends StateNotifier<AsyncValue<List<Event>>> {
 
   EventNotifier(this.useCase, this.networkInfo, this.locationService)
       : super(const AsyncLoading()) {
-    loadEvents();
     _listenToConnection();
   }
 
@@ -25,12 +25,12 @@ class EventNotifier extends StateNotifier<AsyncValue<List<Event>>> {
     try {
       final isConnected = await networkInfo.isConnected;
       if (!isConnected) {
-        throw Exception("No internet connection");
+        throw NoInternetException;
       }
 
       final hasLocation = await locationService.ensurePermission();
       if (!hasLocation) {
-        throw Exception("Location permission not granted or service disabled");
+        throw LocationPermissionException();
       }
 
       final events = await useCase(NoParams());
@@ -44,6 +44,8 @@ class EventNotifier extends StateNotifier<AsyncValue<List<Event>>> {
     _connectionSubscription = networkInfo.onConnectionChanged.listen((result) {
       if (result != ConnectivityResult.none) {
         loadEvents();
+      } else {
+        throw NoInternetException;
       }
     });
   }

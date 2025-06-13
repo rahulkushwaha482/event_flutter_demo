@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:event_flutter_test/core/network/dio_client.dart';
 import 'package:event_flutter_test/feature/events/data/model/event_model.dart';
 

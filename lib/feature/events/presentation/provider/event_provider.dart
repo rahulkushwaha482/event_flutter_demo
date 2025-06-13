@@ -20,21 +20,18 @@ import 'package:event_flutter_test/feature/events/data/datasources/event_data_so
 import 'package:event_flutter_test/feature/events/data/repositories/event_repository_impl.dart';
 import 'package:event_flutter_test/feature/events/domain/entities/event_entity.dart';
 
-// --- Core
 final dioProvider = Provider((ref) => DioClient());
 final connectivityProvider = Provider((ref) => Connectivity());
 final networkInfoProvider = Provider<NetworkInfo>(
     (ref) => NetworkInfoImpl(ref.watch(connectivityProvider)));
 final locationServiceProvider = Provider((ref) => LocationService());
 
-// --- Data Layer
 final eventDataSourceProvider =
     Provider((ref) => EventDataSource(ref.watch(dioProvider)));
 
 final eventRepositoryProvider =
     Provider((ref) => EventRepositoryImpl(ref.watch(eventDataSourceProvider)));
 
-// --- Domain Layer
 final fetchEventsUseCaseProvider =
     Provider((ref) => EventUseCase(ref.watch(eventRepositoryProvider)));
 
@@ -48,5 +45,4 @@ final eventNotifierProvider =
   );
 });
 
-// --- Selected Location
 final selectedLocationProvider = StateProvider<LatLng?>((ref) => null);

@@ -8,8 +8,6 @@ class EventRepositoryImpl implements EventRepository {
 
   EventRepositoryImpl(this.remoteDataSource);
 
-// ToDO: We need to change the lat long here
-
   @override
   Future<List<Event>> fetchEvent() async {
     final models = await remoteDataSource.fetchEvents();
@@ -17,7 +15,6 @@ class EventRepositoryImpl implements EventRepository {
     return List.generate(models.length, (index) {
       final e = models[index];
       //
-      // final location = fixedLocations[index];
       final location = LocationConstant.fixedLocations[index];
 
       return Event(
