@@ -1,3 +1,4 @@
+import 'package:event_flutter_test/core/constants/location_constant.dart';
 import 'package:event_flutter_test/core/utils/date_formatter.dart';
 import 'package:event_flutter_test/feature/events/presentation/provider/event_provider.dart';
 import 'package:flutter/material.dart';
@@ -8,13 +9,6 @@ class EventBottomSheet extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final eventsAsync = ref.watch(eventNotifierProvider);
-
-    final List<LatLng> fixedLocations = [
-      LatLng(28.6139, 77.2090), // Delhi
-      LatLng(12.9716, 77.5946), // Bangalore
-      LatLng(19.0760, 72.8777), // Mumbai
-      LatLng(13.0827, 80.2707), // Chennai
-    ];
 
     return eventsAsync.when(
       data: (events) => Container(
@@ -34,7 +28,7 @@ class EventBottomSheet extends ConsumerWidget {
                   style: TextStyle(color: Colors.white60)),
               onTap: () {
                 ref.read(selectedLocationProvider.notifier).state =
-                    fixedLocations[index];
+                    LocationConstant.fixedLocations[index];
               },
             );
           },

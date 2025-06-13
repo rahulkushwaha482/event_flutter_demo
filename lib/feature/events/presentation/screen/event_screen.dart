@@ -1,3 +1,4 @@
+import 'package:event_flutter_test/core/constants/location_constant.dart';
 import 'package:event_flutter_test/feature/events/presentation/provider/event_provider.dart';
 import 'package:event_flutter_test/feature/events/presentation/widgets/bottom_sheet_widget.dart';
 import 'package:event_flutter_test/feature/events/presentation/widgets/build_nav_item.dart';
@@ -13,25 +14,17 @@ class EventScreen extends ConsumerWidget {
     final eventsAsync = ref.watch(eventNotifierProvider);
     final selectedLocation = ref.watch(selectedLocationProvider);
 
-    final List<LatLng> fixedLocations = [
-      LatLng(28.6139, 77.2090),
-      LatLng(12.9716, 77.5946),
-      LatLng(19.0760, 72.8777),
-      LatLng(13.0827, 80.2707),
-    ];
-
     final markers = <Marker>{};
 
     eventsAsync.whenOrNull(data: (events) {
       for (int i = 0; i < events.length; i++) {
-        final position = fixedLocations[i];
+        final position = LocationConstant.fixedLocations[i];
         markers.add(
           Marker(
             markerId: MarkerId(events[i].name),
             position: position,
             icon: selectedLocation == position
-                ? BitmapDescriptor.defaultMarkerWithHue(
-                    BitmapDescriptor.hueOrange)
+                ? AssetMapBitmap('assets/map_logo.png', width: 55, height: 80)
                 : BitmapDescriptor.defaultMarkerWithHue(
                     BitmapDescriptor.hueRed),
             infoWindow: InfoWindow(title: events[i].name),
@@ -46,7 +39,7 @@ class EventScreen extends ConsumerWidget {
         children: [
           GoogleMap(
             initialCameraPosition: CameraPosition(
-              target: fixedLocations[0],
+              target: LocationConstant.fixedLocations[0],
               zoom: 10,
             ),
             markers: markers,
