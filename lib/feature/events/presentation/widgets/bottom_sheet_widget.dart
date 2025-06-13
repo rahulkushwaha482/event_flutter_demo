@@ -11,7 +11,7 @@ class EventBottomSheet extends ConsumerWidget {
 
     return eventsAsync.when(
       data: (events) => Container(
-        height: 350,
+        height: 320,
         decoration: const BoxDecoration(
           color: Colors.black,
         ),
@@ -20,9 +20,24 @@ class EventBottomSheet extends ConsumerWidget {
           itemBuilder: (context, index) {
             final e = events[index];
             return ListTile(
-              leading: Icon(Icons.location_on, color: Colors.orange),
+              leading: Container(
+                height: 45,
+                width: 45,
+                decoration: BoxDecoration(
+                  color: Colors.orange,
+                  borderRadius: BorderRadius.circular(40),
+                ),
+                child:
+                    Center(child: Icon(Icons.location_on, color: Colors.grey)),
+              ),
               trailing: Icon(Icons.arrow_forward_ios, color: Colors.grey),
-              title: Text(e.name, style: TextStyle(color: Colors.white)),
+              title: Text(
+                e.name,
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
               subtitle: Text(DateFormatter.formatEventDate(e.time),
                   style: TextStyle(color: Colors.white60)),
               onTap: () {
